@@ -1,0 +1,155 @@
+{
+  "scenarios": [
+    {
+      "account": "settler",
+      "period": 64,
+      "start_nonce": 7,
+      "steps": [
+        { "kind": "submit", "at_block": 1000000, "outcome": "ok" },
+        { "kind": "submit", "at_block": 1000010, "outcome": "ok" },
+        { "kind": "submit", "at_block": 1000070, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "one-burn",
+      "period": 8192,
+      "start_nonce": 3,
+      "steps": [
+        { "kind": "submit", "at_block": 2000003, "outcome": "ok" },
+        { "kind": "submit", "at_block": 2000007, "outcome": "failed" },
+        { "kind": "submit", "at_block": 2000011, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "refill",
+      "period": 4096,
+      "start_nonce": 10,
+      "steps": [
+        { "kind": "submit", "at_block": 3000000, "outcome": "failed" },
+        { "kind": "submit", "at_block": 3000001, "outcome": "failed" },
+        { "kind": "resync", "at_block": 3000002, "chain_nonce": 10 },
+        { "kind": "submit", "at_block": 3000003, "outcome": "ok" },
+        { "kind": "submit", "at_block": 3000004, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "stale-reuse",
+      "period": 65536,
+      "start_nonce": 5,
+      "steps": [
+        { "kind": "submit", "at_block": 4000000, "outcome": "ok" },
+        { "kind": "resync", "at_block": 4000050, "chain_nonce": 5 },
+        { "kind": "submit", "at_block": 4000100, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "cold-missing",
+      "period": 128,
+      "start_missing": true,
+      "steps": [
+        { "kind": "submit", "at_block": 5000000, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "cold-zero",
+      "period": 128,
+      "start_nonce": 0,
+      "steps": [
+        { "kind": "submit", "at_block": 5100001, "outcome": "ok" },
+        { "kind": "submit", "at_block": 5100002, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "resync-jump",
+      "period": 256,
+      "start_nonce": 1,
+      "steps": [
+        { "kind": "submit", "at_block": 6000000, "outcome": "ok" },
+        { "kind": "resync", "at_block": 6000001, "chain_nonce": 5 },
+        { "kind": "submit", "at_block": 6000002, "outcome": "ok" },
+        { "kind": "submit", "at_block": 6000003, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "stale-below-start",
+      "period": 512,
+      "start_nonce": 20,
+      "steps": [
+        { "kind": "resync", "at_block": 7000000, "chain_nonce": 18 },
+        { "kind": "submit", "at_block": 7000001, "outcome": "ok" },
+        { "kind": "submit", "at_block": 7000002, "outcome": "ok" },
+        { "kind": "submit", "at_block": 7000003, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "burst-fail",
+      "period": 32,
+      "start_nonce": 100,
+      "steps": [
+        { "kind": "submit", "at_block": 8000000, "outcome": "failed" },
+        { "kind": "submit", "at_block": 8000001, "outcome": "failed" },
+        { "kind": "submit", "at_block": 8000002, "outcome": "failed" },
+        { "kind": "submit", "at_block": 8000003, "outcome": "failed" }
+      ]
+    },
+    {
+      "account": "clamp-low",
+      "period": 3,
+      "start_nonce": 0,
+      "steps": [
+        { "kind": "submit", "at_block": 9000001, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "clamp-high",
+      "period": 100000,
+      "start_nonce": 0,
+      "steps": [
+        { "kind": "submit", "at_block": 9100000, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "quantize-odd",
+      "period": 3000,
+      "start_nonce": 42,
+      "steps": [
+        { "kind": "submit", "at_block": 1234567, "outcome": "ok" },
+        { "kind": "submit", "at_block": 1234600, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "conflict-and-refill",
+      "period": 16,
+      "start_nonce": 3,
+      "steps": [
+        { "kind": "submit", "at_block": 10000000, "outcome": "ok" },
+        { "kind": "submit", "at_block": 10000001, "outcome": "failed" },
+        { "kind": "resync", "at_block": 10000002, "chain_nonce": 4 },
+        { "kind": "submit", "at_block": 10000003, "outcome": "ok" },
+        { "kind": "resync", "at_block": 10000004, "chain_nonce": 3 },
+        { "kind": "submit", "at_block": 10000005, "outcome": "ok" },
+        { "kind": "submit", "at_block": 10000006, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "midrun-missing",
+      "period": 64,
+      "start_nonce": 11,
+      "steps": [
+        { "kind": "submit", "at_block": 11000000, "outcome": "ok" },
+        { "kind": "resync", "at_block": 11000001, "missing": true },
+        { "kind": "submit", "at_block": 11000002, "outcome": "ok" }
+      ]
+    },
+    {
+      "account": "wrap",
+      "period": 64,
+      "start_nonce": 4294967294,
+      "steps": [
+        { "kind": "submit", "at_block": 12000000, "outcome": "ok" },
+        { "kind": "submit", "at_block": 12000001, "outcome": "ok" },
+        { "kind": "submit", "at_block": 12000002, "outcome": "ok" }
+      ]
+    }
+  ]
+}
